@@ -1,23 +1,3 @@
-<?php
-// MrBeast Net Worth Counter
-
-// Estimated values based on public information
-$estimated_net_worth = 500000000; // $500 million (estimated)
-$monthly_views = 1500000000; // 1.5 billion monthly views (estimated)
-$rpm = 5; // Revenue per thousand views in dollars (estimated)
-
-// Calculate earnings per second
-$views_per_day = $monthly_views / 30;
-$views_per_hour = $views_per_day / 24;
-$views_per_minute = $views_per_hour / 60;
-$views_per_second = $views_per_minute / 60;
-$earnings_per_second = ($views_per_second / 1000) * $rpm;
-
-// Format values for display
-$formatted_net_worth = number_format($estimated_net_worth);
-$formatted_earnings_per_second = number_format($earnings_per_second, 2);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,11 +56,11 @@ $formatted_earnings_per_second = number_format($earnings_per_second, 2);
     
     <div class="counter-container">
         <h2>Estimated Net Worth:</h2>
-        <div class="net-worth">$<?php echo $formatted_net_worth; ?></div>
+        <div class="net-worth" id="net-worth">$500,000,000</div>
         
         <h3>Earnings in Real-Time:</h3>
         <div class="earnings-counter" id="earnings-counter">$0.00</div>
-        <p>Based on approximately <?php echo number_format($monthly_views); ?> monthly views and $<?php echo $rpm; ?> RPM</p>
+        <p>Based on approximately 1,500,000,000 monthly views and $5 RPM</p>
     </div>
     
     <div class="affiliate">
@@ -95,13 +75,32 @@ $formatted_earnings_per_second = number_format($earnings_per_second, 2);
     </div>
     
     <script>
-        // JavaScript for real-time counter
-        const earningsPerSecond = <?php echo $earnings_per_second; ?>;
+        // Values that were calculated in PHP
+        const estimatedNetWorth = 500000000; // $500 million
+        const monthlyViews = 1500000000; // 1.5 billion monthly views
+        const rpm = 5; // Revenue per thousand views in dollars
+        
+        // Calculate earnings per second
+        const viewsPerDay = monthlyViews / 30;
+        const viewsPerHour = viewsPerDay / 24;
+        const viewsPerMinute = viewsPerHour / 60;
+        const viewsPerSecond = viewsPerMinute / 60;
+        const earningsPerSecond = (viewsPerSecond / 1000) * rpm;
+        
+        // Format values for display
+        document.getElementById('net-worth').textContent = '$' + estimatedNetWorth.toLocaleString('en-US');
+        
+        // Real-time counter
         const earningsCounter = document.getElementById('earnings-counter');
         let earnings = 0;
+        let lastUpdate = Date.now();
         
         function updateCounter() {
-            earnings += earningsPerSecond;
+            const now = Date.now();
+            const delta = (now - lastUpdate) / 1000; // time difference in seconds
+            lastUpdate = now;
+            
+            earnings += earningsPerSecond * delta;
             earningsCounter.textContent = '$' + earnings.toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
