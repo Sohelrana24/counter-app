@@ -3,34 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counter App</title>
+    <title>Stylish Counter App</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        h1 { color: #333; }
-        #counter { font-size: 40px; margin: 20px; }
-        button { font-size: 20px; padding: 10px 20px; margin: 5px; cursor: pointer; }
+        /* Page styling */
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4); 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+        }
+        h1 { color: #333; font-size: 28px; }
+        #counter { 
+            font-size: 50px; 
+            font-weight: bold; 
+            color: #222; 
+            margin: 20px; 
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Button styling */
+        button { 
+            font-size: 20px; 
+            padding: 12px 25px; 
+            margin: 10px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            font-weight: bold;
+        }
+        button:hover { opacity: 0.8; }
+        
+        /* Different button colors */
+        .increase { background-color: #4CAF50; color: white; }
+        .decrease { background-color: #f44336; color: white; }
+        .reset { background-color: #008CBA; color: white; }
+
     </style>
 </head>
 <body>
-    <h1>Simple Counter</h1>
+    <h1>Stylish Counter App</h1>
     <p id="counter">0</p>
-    <button onclick="increase()">Increase</button>
-    <button onclick="decrease()">Decrease</button>
-    <button onclick="reset()">Reset</button>
+    <button class="increase" onclick="increase()">Increase</button>
+    <button class="decrease" onclick="decrease()">Decrease</button>
+    <button class="reset" onclick="reset()">Reset</button>
 
     <script>
         let count = 0;
+        function updateCounter() {
+            document.getElementById("counter").innerText = count;
+        }
         function increase() {
             count++;
-            document.getElementById("counter").innerText = count;
+            updateCounter();
         }
         function decrease() {
             count--;
-            document.getElementById("counter").innerText = count;
+            updateCounter();
         }
         function reset() {
             count = 0;
-            document.getElementById("counter").innerText = count;
+            updateCounter();
         }
     </script>
 </body>
